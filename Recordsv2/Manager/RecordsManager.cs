@@ -8,11 +8,12 @@ namespace Recordsv2.Manager
 {
     public class RecordsManager
     {
+        private static int _nextId = 1;
         private static List<Record> recordsList = new List<Record>()
         {
-            new Record() {Title = "Elvis best Beats", Artist = "Elvis", Duration = 3600, PublicationYear = "1956"},
-            new Record() {Title = "Bamses venner", Artist = "Bamse", Duration = 1600, PublicationYear = "1996"},
-            new Record() {Title = "Kidd er den bedste", Artist = "Kidd", Duration = 4600, PublicationYear = "2011"}
+            new Record() {Id = _nextId++, Title = "Elvis best Beats", Artist = "Elvis", Duration = 3600, PublicationYear = "1956"},
+            new Record() {Id = _nextId++, Title = "Bamses venner", Artist = "Bamse", Duration = 1600, PublicationYear = "1996"},
+            new Record() {Id = _nextId++, Title = "Kidd er den bedste", Artist = "Kidd", Duration = 4600, PublicationYear = "2011"}
         };
 
 
@@ -33,6 +34,18 @@ namespace Recordsv2.Manager
             }
             
             return result;
+        }
+
+        public Record AddRecord(Record newRecord)
+        {
+            newRecord.Id = _nextId++;
+            recordsList.Add(newRecord);
+            return newRecord;
+        }
+
+        public Record DeleteRecord(int id)
+        {
+
         }
 
     }

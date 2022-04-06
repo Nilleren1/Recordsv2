@@ -9,24 +9,32 @@ using Recordsv2.Models;
 
 namespace Recordsv2.Manager.Tests
 {
+
     [TestClass()]
     public class RecordsManagerTests
     {
+        private RecordsManager _manager;
+        IEnumerable<Record> noFilterList;
+        IEnumerable<Record> recordList;
 
-        RecordsManager _manager = new RecordsManager();
+        [TestInitialize]
+        public void init()
+        {
+            _manager = new RecordsManager();
+            noFilterList = _manager.GetAll("","");
+            recordList = _manager.GetAll("", "");
+        }
+
 
         [TestMethod()]
         public void GetAllTest()
         {
             //Arrange
-            IEnumerable<Record> noFilterList;
-            IEnumerable<Record> recordList;
             string artist = "kid";
             string year = "2011";
 
             //Act
             recordList = _manager.GetAll(artist, year);
-            noFilterList = _manager.GetAll("", "");
 
             //Assert
             //Vi gør det på to måder for at vise de forskellige måder det kan gøres på.
@@ -39,6 +47,21 @@ namespace Recordsv2.Manager.Tests
             Assert.AreEqual(3, noFilterList.Count());
             Assert.AreEqual("Elvis best Beats", noFilterList.ElementAt(0).Title);
             
+        }
+
+        [TestMethod()]
+        public void PostMethodTest()
+        {
+            //Arrange
+            Record newRecord = new Record("bjørnebjørn er en bjørn", "Sigurd", 14500, "2002");
+
+            //Act
+            _manager.AddRecord(newRecord);
+            recordList = _manager.GetAll("","");
+
+            //Assert
+            Assert.AreEqual(4, recordList.ElementAt(3).Id);
+            Assert.AreEqual("Sigurd", recordList.ElementAt(3).Artist);
         }
     }
 }

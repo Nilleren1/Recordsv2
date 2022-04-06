@@ -39,8 +39,11 @@ namespace Recordsv2.Controllers
 
         // POST api/<RecordsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Record> Post([FromBody] Record newRecord)
         {
+            Record createdRecord = new Record();
+            createdRecord = _manager.AddRecord(newRecord);
+            return createdRecord;
         }
 
         // PUT api/<RecordsController>/5
