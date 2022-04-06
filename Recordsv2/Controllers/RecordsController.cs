@@ -20,9 +20,9 @@ namespace Recordsv2.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
-        public ActionResult<IEnumerable<Record>> GetAll()
+        public ActionResult<IEnumerable<Record>> GetAll(string filterString, string year)
         {
-            IEnumerable<Record> result = _manager.GetAll();
+            IEnumerable<Record> result = _manager.GetAll(filterString, year);
             if (result.Count() == 0)
             {
                 NoContent();
