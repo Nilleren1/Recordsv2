@@ -12,6 +12,7 @@ namespace Recordsv2.Manager.Tests
     [TestClass()]
     public class RecordsManagerTests
     {
+
         RecordsManager _manager = new RecordsManager();
 
         [TestMethod()]
