@@ -45,6 +45,20 @@ namespace Recordsv2.Manager
             return record;
         }
 
+        public Record UpdateRecord(int id, Record recordToBeUpdated){
+            Record record = GetById(id);
+            if (record == null){
+                return null;
+            }
+            record.Title = recordToBeUpdated.Title;
+            record.Artist = recordToBeUpdated.Artist;
+            record.Duration = recordToBeUpdated.Duration;
+            record.PublicationYear = recordToBeUpdated.PublicationYear;
+            return recordToBeUpdated;
+
+
+        }
+
         //For refactoring purposes, method: GetAll
         public IEnumerable<Record> FilterFunction(string filterString, string year, IEnumerable<Record> result)
         {

@@ -50,9 +50,19 @@ namespace Recordsv2.Controllers
         }
 
         // PUT api/<RecordsController>/5
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+        public ActionResult<Record> Put(int id, [FromBody] Record recordValue){
+            if (recordValue.Title == null || recordValue.Artist == null){
+                return BadRequest();
+            }
+            Record record = _manager.GetById(id);
+            if(record == null){
+                return NotFound();
+            }
+            return Ok(_manager.UpdateRecord(id, recordValue));
         }
 
         // DELETE api/<RecordsController>/5
@@ -68,5 +78,7 @@ namespace Recordsv2.Controllers
             _manager.DeleteRecord(id);
             return Ok(recordToBeDeleted);
         }
+
+        
     }
 }
