@@ -60,27 +60,41 @@ namespace Recordsv2.Manager.Tests
             recordList = _manager.GetAll("","");
 
             //Assert
-            Assert.AreEqual(4, recordList.ElementAt(3).Id);
+            Assert.AreEqual(4, recordList.Count());
             Assert.AreEqual("Sigurd", recordList.ElementAt(3).Artist);
         }
 
-        //[TestMethod]
-        //public void DeleteMethodTest()
-        //{
-        //    //Arrange
-        //    Record Record = new Record("Hells angels", "Slipknot", 11501, "2008");
+        [TestMethod]
+        public void DeleteMethodTest() {
+            //Arrange
+            Record Record = new Record("Hells angels", "Slipknot", 11501, "2008");
 
-        //    _manager.AddRecord(Record);
-        //    recordList = _manager.GetAll("", "");
+            _manager.AddRecord(Record);
+            recordList = _manager.GetAll("", "");
 
-        //    //Act
-        //    Assert.AreEqual(4, recordList.Count());
-        //    _manager.DeleteRecord(4);
-        //    _manager.GetAll("","");
+            //Act
+            Assert.AreEqual(4, recordList.Count());
+            _manager.DeleteRecord(4);
+            recordList = _manager.GetAll("", "");
 
-        //    //Assert
-            
-        //    Assert.AreEqual(3, recordList.Count());
-        //}
+            //Assert
+
+            Assert.AreEqual(3, recordList.Count());
+        }
+
+        [TestMethod]
+        public void UpdateMethodTest(){
+            //Arrange
+            Record record = new Record("Test", "Nico", 3232, "2022");
+            Record record2 = new Record("Hyggehejsa", "Nico", 3232, "2022");
+            _manager.AddRecord(record);
+            recordList = _manager.GetAll("","");
+
+            //Act
+            _manager.UpdateRecord(record.Id, record2);
+
+            //Assert
+            Assert.AreEqual("Hyggehejsa", record.Title);
+        }
     }
 }
