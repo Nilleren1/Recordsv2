@@ -64,7 +64,7 @@ namespace Recordsv2.Manager.Tests
             Assert.AreEqual("Sigurd", recordList.ElementAt(3).Artist);
         }
 
-        [TestMethod]
+        //[TestMethod]
         //public void DeleteMethodTest()
         //{
         //    //Arrange
