@@ -32,18 +32,21 @@ namespace Recordsv2.Controllers
 
         // GET api/<RecordsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+        public ActionResult<Record> Get(int id){
+            return _manager.GetById(id);
         }
 
         // POST api/<RecordsController>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public ActionResult<Record> Post([FromBody] Record newRecord)
-        {
+        public ActionResult<Record> Post([FromBody] Record newRecord){
             Record createdRecord = new Record();
+            if (newRecord.Title == null){
+                return BadRequest();
+            }
             createdRecord = _manager.AddRecord(newRecord);
-            return createdRecord;
+            return Created("api/Records/" + createdRecord.Id, createdRecord);
         }
 
         // PUT api/<RecordsController>/5
@@ -53,9 +56,17 @@ namespace Recordsv2.Controllers
         }
 
         // DELETE api/<RecordsController>/5
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+        public ActionResult<Record> Delete(int id){
+            Record recordToBeDeleted = _manager.GetById(id);
+            if (recordToBeDeleted == null){
+                return NotFound();
+            }
+
+            _manager.DeleteRecord(id);
+            return Ok(recordToBeDeleted);
         }
     }
 }

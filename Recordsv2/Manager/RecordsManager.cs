@@ -36,6 +36,10 @@ namespace Recordsv2.Manager
             return result;
         }
 
+        public Record GetById(int id){
+            return recordsList.Find(r => r.Id == id);
+        }
+
         public Record AddRecord(Record newRecord)
         {
             newRecord.Id = _nextId++;
@@ -43,9 +47,12 @@ namespace Recordsv2.Manager
             return newRecord;
         }
 
-        public Record DeleteRecord(int id)
-        {
-
+        public Record DeleteRecord(int id){
+            Record record = GetById(id);
+            if (record.Id == id){
+                recordsList.Remove(record);
+            }
+            return record;
         }
 
     }
