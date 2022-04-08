@@ -19,19 +19,9 @@ namespace Recordsv2.Manager
 
         public IEnumerable<Record> GetAll(string filterString, string year)
         {
-            List<Record> result = new List<Record>(recordsList);
-            if (!string.IsNullOrWhiteSpace(filterString)){
-                if (year != null){
-                    result = result.FindAll(
-                    r => r.Title.Contains(filterString, StringComparison.OrdinalIgnoreCase) 
-                    && r.PublicationYear == year ||
-                    r.Artist.Contains(filterString, StringComparison.OrdinalIgnoreCase) 
-                    && r.PublicationYear == year);
-                }
-                result = result.FindAll(
-                r => r.Title.Contains(filterString, StringComparison.OrdinalIgnoreCase) || 
-                r.Artist.Contains(filterString, StringComparison.OrdinalIgnoreCase));
-            }
+            IEnumerable<Record> result = new List<Record>(recordsList);
+            
+            result = FilterFunction(filterString, year, result);
             
             return result;
         }
@@ -53,6 +43,28 @@ namespace Recordsv2.Manager
                 recordsList.Remove(record);
             }
             return record;
+        }
+
+        //For refactoring purposes, method: GetAll
+        public IEnumerable<Record> FilterFunction(string filterString, string year, IEnumerable<Record> result)
+        {
+            if (!string.IsNullOrWhiteSpace(filterString))
+            {
+                
+                if (year != null)
+                {
+                    result = result.Where(
+                        r => r.Title.Contains(filterString, StringComparison.OrdinalIgnoreCase)
+                             && r.PublicationYear == year ||
+                             r.Artist.Contains(filterString, StringComparison.OrdinalIgnoreCase)
+                             && r.PublicationYear == year);
+                }
+                result = result.Where(
+                    r => r.Title.Contains(filterString, StringComparison.OrdinalIgnoreCase) ||
+                         r.Artist.Contains(filterString, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return result;
         }
 
     }

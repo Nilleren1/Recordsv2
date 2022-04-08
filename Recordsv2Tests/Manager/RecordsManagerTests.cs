@@ -63,5 +63,24 @@ namespace Recordsv2.Manager.Tests
             Assert.AreEqual(4, recordList.ElementAt(3).Id);
             Assert.AreEqual("Sigurd", recordList.ElementAt(3).Artist);
         }
+
+        [TestMethod]
+        //public void DeleteMethodTest()
+        //{
+        //    //Arrange
+        //    Record Record = new Record("Hells angels", "Slipknot", 11501, "2008");
+
+        //    _manager.AddRecord(Record);
+        //    recordList = _manager.GetAll("", "");
+
+        //    //Act
+        //    Assert.AreEqual(4, recordList.Count());
+        //    _manager.DeleteRecord(4);
+        //    _manager.GetAll("","");
+
+        //    //Assert
+            
+        //    Assert.AreEqual(3, recordList.Count());
+        //}
     }
 }
