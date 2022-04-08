@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Recordsv2.Manager;
 using Recordsv2.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Recordsv2.Controllers
 {
